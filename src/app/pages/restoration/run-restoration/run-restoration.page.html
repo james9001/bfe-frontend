@@ -1,0 +1,53 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-menu-button></ion-menu-button>
+		</ion-buttons>
+		<ion-item lines="none">
+			<ion-title class="toolbar-title-header">Run Restoration</ion-title>
+			<ion-icon name="play-outline" slot="end" (click)="onClickPlay()"></ion-icon>
+		</ion-item>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content class="noselect">
+	<form novalidate>
+		<ion-item lines="full" class="ion-activatable">
+			<ion-label position="stacked" color="primary" class="ion-text-wrap">AES Password</ion-label>
+			<ion-input [(ngModel)]="model.aesPassword" name="aesPassword" type="text" required="true">
+			</ion-input>
+		</ion-item>
+		<ion-item lines="full" class="ion-activatable">
+			<ion-label position="stacked" color="primary" class="ion-text-wrap">Camellia Password</ion-label>
+			<ion-input
+				[(ngModel)]="model.camelliaPassword"
+				name="camelliaPassword"
+				type="text"
+				required="true"
+			>
+			</ion-input>
+		</ion-item>
+		<ion-item lines="full" class="ion-activatable">
+			<ion-label position="stacked" color="primary" class="ion-text-wrap">Category</ion-label>
+			<ion-input [(ngModel)]="model.category" name="category" type="text" required="true"> </ion-input>
+		</ion-item>
+		<ion-item lines="full" class="ion-activatable">
+			<ion-label position="stacked" color="primary" class="ion-text-wrap">Checksum</ion-label>
+			<ion-input [(ngModel)]="model.checksum" name="checksum" type="text" required="true"> </ion-input>
+		</ion-item>
+		<ion-item lines="full" class="ion-activatable">
+			<ion-label position="stacked" color="primary" class="ion-text-wrap"
+				>Source Directory Artefact (i.e. the thing that begins with "dir_")</ion-label
+			>
+			<ion-input [(ngModel)]="model.sourceDir" name="sourceDir" type="text" required="true">
+			</ion-input>
+		</ion-item>
+		<ion-item lines="full" class="ion-activatable">
+			<ion-label position="stacked" color="primary" class="ion-text-wrap"
+				>Destination Directory</ion-label
+			>
+			<ion-input [(ngModel)]="model.destinationDir" name="destinationDir" type="text" required="true">
+			</ion-input>
+		</ion-item>
+	</form>
+</ion-content>

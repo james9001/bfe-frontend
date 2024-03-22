@@ -1,0 +1,270 @@
+<ion-app>
+	<ion-split-pane contentId="main-content">
+		<ion-menu contentId="main-content">
+			<ion-header class="noselect">
+				<app-real-time-status> </app-real-time-status>
+			</ion-header>
+
+			<ion-content class="noselect" style="z-index: 10">
+				<ion-list lines="none" style="padding-top: 0">
+					<ion-menu-toggle autoHide="false">
+						<ion-item routerLink="/home" routerLinkActive="active" routerDirection="root" detail="false">
+							<ion-icon slot="start" name="home-outline"></ion-icon>
+							<ion-label> Home </ion-label>
+						</ion-item>
+					</ion-menu-toggle>
+					<ion-menu-toggle autoHide="false">
+						<ion-item
+							routerLink="/settings"
+							routerLinkActive="active"
+							routerDirection="root"
+							detail="false"
+						>
+							<ion-icon slot="start" name="cog-outline"></ion-icon>
+							<ion-label> Settings </ion-label>
+						</ion-item>
+					</ion-menu-toggle>
+					<ion-menu-toggle autoHide="false">
+						<ion-item routerLink="/speed" routerLinkActive="active" routerDirection="root" detail="false">
+							<ion-icon slot="start" name="play-forward-outline"></ion-icon>
+							<ion-label> Adjust Upload Speed </ion-label>
+						</ion-item>
+					</ion-menu-toggle>
+					<ion-menu-toggle autoHide="false">
+						<ion-item
+							routerLink="/overview"
+							routerLinkActive="active"
+							routerDirection="root"
+							detail="false"
+						>
+							<ion-icon slot="start" name="book-outline"></ion-icon>
+							<ion-label> Overview </ion-label>
+						</ion-item>
+					</ion-menu-toggle>
+				</ion-list>
+
+				<ion-list lines="none" style="padding-top: 0">
+					<ion-list-header> Automation </ion-list-header>
+
+					<app-automatic-mode-toggler></app-automatic-mode-toggler>
+
+					<ion-menu-toggle autoHide="false">
+						<ion-item
+							routerLink="/run-batch"
+							routerLinkActive="active"
+							routerDirection="root"
+							detail="false"
+						>
+							<ion-icon slot="start" name="play-outline"></ion-icon>
+							<ion-label> Run Batch</ion-label>
+						</ion-item>
+					</ion-menu-toggle>
+					<ion-menu-toggle autoHide="false" *ngIf="settings.showOldDataPages">
+						<ion-item
+							routerLink="/queued-backup-executions-old-data"
+							routerLinkActive="active"
+							routerDirection="root"
+							detail="false"
+						>
+							<ion-icon
+								slot="start"
+								name="hammer-outline"
+								style="color: var(--ion-color-medium-shade)"
+							></ion-icon>
+							<ion-label style="color: var(--ion-color-medium-shade)">
+								Queued Backup Executions
+							</ion-label>
+						</ion-item>
+					</ion-menu-toggle>
+				</ion-list>
+
+				<ion-list lines="none" style="padding-top: 0">
+					<ion-list-header> Backup </ion-list-header>
+
+					<ion-menu-toggle autoHide="false">
+						<ion-item
+							routerLink="/run-backup"
+							routerLinkActive="active"
+							routerDirection="root"
+							detail="false"
+						>
+							<ion-icon slot="start" name="play-outline"></ion-icon>
+							<ion-label> Run Backup</ion-label>
+						</ion-item>
+					</ion-menu-toggle>
+
+					<ion-menu-toggle autoHide="false" *ngIf="settings.showOldDataPages">
+						<ion-item
+							routerLink="/preservation-targets-old-data"
+							routerLinkActive="active"
+							routerDirection="root"
+							detail="false"
+						>
+							<ion-icon
+								slot="start"
+								name="trophy-outline"
+								style="color: var(--ion-color-medium-shade)"
+							></ion-icon>
+							<ion-label style="color: var(--ion-color-medium-shade)"> Preservation Targets </ion-label>
+						</ion-item>
+					</ion-menu-toggle>
+
+					<ion-menu-toggle autoHide="false" *ngIf="settings.showOldDataPages">
+						<ion-item
+							routerLink="/backup-executions-old-data"
+							routerLinkActive="active"
+							routerDirection="root"
+							detail="false"
+						>
+							<ion-icon
+								slot="start"
+								name="hammer-outline"
+								style="color: var(--ion-color-medium-shade)"
+							></ion-icon>
+							<ion-label style="color: var(--ion-color-medium-shade)"> Backup Executions </ion-label>
+						</ion-item>
+					</ion-menu-toggle>
+
+					<!-- <ion-menu-toggle autoHide="false" *ngIf="settings.showOldDataPages">
+						<ion-item
+							routerLink="/backup-executions-data"
+							routerLinkActive="active"
+							routerDirection="root"
+							detail="false"
+						>
+							<ion-icon
+								slot="start"
+								name="hammer-outline"
+								style="color: var(--ion-color-medium-shade)"
+							></ion-icon>
+							<ion-label style="color: var(--ion-color-medium-shade)">
+								Backup Executions Data (Prototype)</ion-label
+							>
+						</ion-item>
+					</ion-menu-toggle> -->
+
+					<ion-menu-toggle autoHide="false" *ngIf="settings.showOldDataPages">
+						<ion-item
+							routerLink="/backup-secrets-old-data"
+							routerLinkActive="active"
+							routerDirection="root"
+							detail="false"
+						>
+							<ion-icon
+								slot="start"
+								name="lock-closed-outline"
+								style="color: var(--ion-color-medium-shade)"
+							></ion-icon>
+							<ion-label style="color: var(--ion-color-medium-shade)"> Backup Secrets </ion-label>
+						</ion-item>
+					</ion-menu-toggle>
+				</ion-list>
+
+				<ion-list lines="none" style="padding-top: 0">
+					<ion-list-header> Upload </ion-list-header>
+
+					<ion-menu-toggle autoHide="false">
+						<ion-item
+							routerLink="/run-upload"
+							routerLinkActive="active"
+							routerDirection="root"
+							detail="false"
+						>
+							<ion-icon slot="start" name="play-outline"></ion-icon>
+							<ion-label> Run Upload</ion-label>
+						</ion-item>
+					</ion-menu-toggle>
+
+					<ion-menu-toggle autoHide="false">
+						<ion-item
+							routerLink="/current-upload"
+							routerLinkActive="active"
+							routerDirection="root"
+							detail="false"
+						>
+							<ion-icon slot="start" name="eye-outline"></ion-icon>
+							<ion-label> Current Upload</ion-label>
+						</ion-item>
+					</ion-menu-toggle>
+
+					<ion-menu-toggle autoHide="false" *ngIf="settings.showOldDataPages">
+						<ion-item
+							routerLink="/upload-executions-old-data"
+							routerLinkActive="active"
+							routerDirection="root"
+							detail="false"
+						>
+							<ion-icon
+								slot="start"
+								name="cloud-upload-outline"
+								style="color: var(--ion-color-medium-shade)"
+							></ion-icon>
+							<ion-label style="color: var(--ion-color-medium-shade)"> Upload Executions </ion-label>
+						</ion-item>
+					</ion-menu-toggle>
+				</ion-list>
+
+				<ion-list lines="none" style="padding-top: 0">
+					<ion-list-header> Restoration </ion-list-header>
+
+					<ion-menu-toggle autoHide="false">
+						<ion-item
+							routerLink="/run-restoration"
+							routerLinkActive="active"
+							routerDirection="root"
+							detail="false"
+						>
+							<ion-icon slot="start" name="play-outline"></ion-icon>
+							<ion-label> Run Restoration </ion-label>
+						</ion-item>
+					</ion-menu-toggle>
+
+					<ion-menu-toggle autoHide="false" *ngIf="settings.showOldDataPages">
+						<ion-item
+							routerLink="/restoration-executions-old-data"
+							routerLinkActive="active"
+							routerDirection="root"
+							detail="false"
+						>
+							<ion-icon
+								slot="start"
+								name="reload-circle-outline"
+								style="color: var(--ion-color-medium-shade)"
+							></ion-icon>
+							<ion-label style="color: var(--ion-color-medium-shade)"> Restoration Executions </ion-label>
+						</ion-item>
+					</ion-menu-toggle>
+					<ion-menu-toggle autoHide="false" *ngIf="settings.showOldDataPages">
+						<ion-item
+							routerLink="/restoration-secrets-old-data"
+							routerLinkActive="active"
+							routerDirection="root"
+							detail="false"
+						>
+							<ion-icon
+								slot="start"
+								name="lock-open-outline"
+								style="color: var(--ion-color-medium-shade)"
+							></ion-icon>
+							<ion-label style="color: var(--ion-color-medium-shade)"> Restoration Secrets </ion-label>
+						</ion-item>
+					</ion-menu-toggle>
+				</ion-list>
+				<ion-list>
+					<ion-menu-toggle autoHide="false" *ngIf="settings.showOldDataPages">
+						<ion-item detail="false" (click)="onClickKillCurrentProcess()">
+							<ion-icon
+								slot="start"
+								name="skull-outline"
+								style="color: var(--ion-color-danger)"
+							></ion-icon>
+							<ion-label style="color: var(--ion-color-danger)"> Kill Current Process </ion-label>
+						</ion-item>
+					</ion-menu-toggle>
+				</ion-list>
+			</ion-content>
+		</ion-menu>
+
+		<ion-router-outlet id="main-content"></ion-router-outlet>
+	</ion-split-pane>
+</ion-app>

@@ -1,0 +1,136 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-menu-button></ion-menu-button>
+		</ion-buttons>
+		<ion-item lines="none">
+			<ion-title class="toolbar-title-header">Settings</ion-title>
+		</ion-item>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content class="noselect">
+	<form novalidate>
+		<h4>Main Settings</h4>
+		<ion-item lines="full" class="ion-activatable">
+			<ion-label position="stacked" color="primary" class="ion-text-wrap"
+				>rclone Bandwidth Limit</ion-label
+			>
+			<ion-input
+				[(ngModel)]="applicationSettingsModel.rcloneBwLimit"
+				name="rcloneBwLimit"
+				type="text"
+				required="true"
+			>
+			</ion-input>
+		</ion-item>
+
+		<ion-item lines="full" class="ion-activatable">
+			<ion-label position="stacked" color="primary" class="ion-text-wrap"
+				>Default Backup Category</ion-label
+			>
+			<ion-input
+				[(ngModel)]="applicationSettingsModel.defaultBackupCategory"
+				name="defaultBackupCategory"
+				type="text"
+				required="true"
+			>
+			</ion-input>
+		</ion-item>
+
+		<ion-item lines="full" class="ion-activatable">
+			<ion-label position="stacked" color="primary" class="ion-text-wrap"
+				>Default Upload Destination</ion-label
+			>
+			<ion-input
+				[(ngModel)]="applicationSettingsModel.defaultUploadDestination"
+				name="defaultUploadDestination"
+				type="text"
+				required="true"
+			>
+			</ion-input>
+		</ion-item>
+		<ion-item lines="full" class="ion-activatable">
+			<ion-label position="stacked" color="primary" class="ion-text-wrap"
+				>Default Upload Path</ion-label
+			>
+			<ion-input
+				[(ngModel)]="applicationSettingsModel.defaultUploadPath"
+				name="defaultUploadPath"
+				type="text"
+				required="true"
+			>
+			</ion-input>
+		</ion-item>
+
+		<ion-item lines="full" class="ion-activatable">
+			<ion-label position="stacked" color="primary" class="ion-text-wrap"
+				>Default Second Upload Destination</ion-label
+			>
+			<ion-input
+				[(ngModel)]="applicationSettingsModel.defaultSecondUploadDestination"
+				name="defaultSecondUploadDestination"
+				type="text"
+				required="true"
+			>
+			</ion-input>
+		</ion-item>
+		<ion-item lines="full" class="ion-activatable">
+			<ion-label position="stacked" color="primary" class="ion-text-wrap"
+				>Default Second Upload Path</ion-label
+			>
+			<ion-input
+				[(ngModel)]="applicationSettingsModel.defaultSecondUploadPath"
+				name="defaultSecondUploadPath"
+				type="text"
+				required="true"
+			>
+			</ion-input>
+		</ion-item>
+		<ion-item lines="full" class="ion-activatable">
+			<ion-label color="primary" class="ion-text-wrap">Show Old Data Pages</ion-label>
+			<ion-checkbox
+				[(ngModel)]="applicationSettingsModel.showOldDataPages"
+				slot="start"
+				name="showOldDataPages"
+			>
+			</ion-checkbox>
+		</ion-item>
+		<ion-item lines="full" class="ion-activatable">
+			<ion-label color="primary" class="ion-text-wrap">Upload to Two Targets</ion-label>
+			<ion-checkbox
+				[(ngModel)]="applicationSettingsModel.uploadToTwoTargets"
+				slot="start"
+				name="uploadToTwoTargets"
+			>
+			</ion-checkbox>
+		</ion-item>
+		<ion-item lines="full" class="ion-activatable">
+			<ion-label position="stacked" color="primary" class="ion-text-wrap"
+				>Backup Copy Phase Bandwidth Limit (Use "100G" etc to effectively disable)</ion-label
+			>
+			<ion-input
+				[(ngModel)]="applicationSettingsModel.backupCopyPhaseBwLimit"
+				name="backupCopyPhaseBwLimit"
+				type="text"
+				required="true"
+			>
+			</ion-input>
+		</ion-item>
+		<ion-button (click)="onClickSaveMainSettings()">Save Main Settings</ion-button>
+		<h4>Connection</h4>
+		<ion-item lines="full" class="ion-activatable">
+			<ion-label position="stacked" color="primary" class="ion-text-wrap"
+				>BFE Backend Base URL</ion-label
+			>
+			<ion-input
+				[(ngModel)]="connectionModel.apiBaseUrl"
+				name="apiBaseUrl"
+				type="text"
+				required="true"
+			>
+			</ion-input>
+		</ion-item>
+		<ion-button (click)="onClickSaveConnectionSettings()">Save Connection Settings</ion-button>
+	</form>
+</ion-content>

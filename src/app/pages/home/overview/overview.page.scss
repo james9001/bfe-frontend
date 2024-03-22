@@ -1,0 +1,63 @@
+ion-item.objectlist-item-expanded {
+	--background: rgba(var(--ion-color-primary-rgb), 0.12);
+}
+
+.objectlist-category-ionicon {
+	width: 80%;
+	height: 80%;
+	color: #222428;
+}
+
+.brighter-lines {
+	--border-color: var(--ion-color-step-150);
+}
+
+.magic-spacing-hax {
+	margin-left: 2.9rem;
+	margin-right: 2.9rem;
+	min-height: 49px;
+}
+.category-magic-spacing-hax {
+	margin-left: 3.5rem;
+	margin-right: 3.5rem;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.tiny-inline-div {
+	width: 1.5rem;
+	display: inline-block;
+	text-align: right;
+	color: var(--ion-color-step-600, #666666);
+	font-size: 14px;
+}
+
+.priority-avatar {
+	background-color: var(--ion-color-medium);
+	text-align: center;
+	padding-top: 10px;
+	color: var(--ion-color-medium-contrast);
+}
+
+.objectlist-category-avatar-error {
+	background-color: var(--ion-color-danger);
+	text-align: center;
+	padding-top: 5px;
+}
+.objectlist-category-avatar-warning {
+	background-color: var(--ion-color-warning);
+	text-align: center;
+	padding-top: 5px;
+}
+.objectlist-category-avatar-primary {
+	background-color: var(--ion-color-primary);
+	text-align: center;
+	padding-top: 5px;
+}
+
+ion-col.col-normal {
+	min-width: 300px;
+}
+ion-col.col-full {
+	min-width: 100%;
+}

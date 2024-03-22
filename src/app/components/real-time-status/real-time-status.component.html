@@ -1,0 +1,51 @@
+<div class="bfelephant-card">
+	<div class="bfename">B F E</div>
+	<img src="assets/bfelephant.png" class="bfelephant-image" />
+</div>
+
+<ion-card>
+	<ion-item lines="none">
+		<ion-avatar *ngIf="mainStatus == 'DISCONNECTED'" slot="start" class="status-disconnected">
+		</ion-avatar>
+		<ion-label *ngIf="mainStatus == 'DISCONNECTED'">
+			<h2>Disconnected {{ detailsText }}</h2>
+		</ion-label>
+
+		<ion-avatar *ngIf="mainStatus == 'FREE'" slot="start" class="status-free"> </ion-avatar>
+		<ion-label *ngIf="mainStatus == 'FREE'">
+			<h2>Idle {{ detailsText }}</h2>
+		</ion-label>
+
+		<ion-avatar *ngIf="mainStatus == 'DOING_BACKUP'" slot="start" class="status-doing-backup">
+		</ion-avatar>
+		<ion-label *ngIf="mainStatus == 'DOING_BACKUP'">
+			<h2>Backing up {{ detailsText }}</h2>
+		</ion-label>
+
+		<ion-avatar *ngIf="mainStatus == 'DOING_UPLOAD'" slot="start" class="status-doing-upload">
+		</ion-avatar>
+		<ion-label *ngIf="mainStatus == 'DOING_UPLOAD'">
+			<h2>Uploading {{ detailsText }}</h2>
+		</ion-label>
+
+		<ion-avatar
+			*ngIf="mainStatus == 'DOING_RESTORATION'"
+			slot="start"
+			class="status-doing-restoration"
+		>
+		</ion-avatar>
+		<ion-label *ngIf="mainStatus == 'DOING_RESTORATION'">
+			<h2>Restoring {{ detailsText }}</h2>
+		</ion-label>
+
+		<ion-label *ngIf="inErrorState" slot="end">
+			<h2>Error</h2>
+		</ion-label>
+		<ion-avatar *ngIf="inErrorState" slot="end" class="error-avatar"> </ion-avatar>
+
+		<ion-label *ngIf="inAutomaticMode" slot="end">
+			<h2>Auto</h2>
+		</ion-label>
+		<ion-avatar *ngIf="inAutomaticMode" slot="end" class="auto-avatar"> </ion-avatar>
+	</ion-item>
+</ion-card>

@@ -1,0 +1,33 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-menu-button></ion-menu-button>
+		</ion-buttons>
+		<ion-item lines="none">
+			<ion-title class="toolbar-title-header">Run Backup</ion-title>
+			<ion-icon name="play-outline" slot="end" (click)="onClickPlay()"></ion-icon>
+		</ion-item>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content class="noselect">
+	<form novalidate>
+		<ion-item lines="full" class="ion-activatable">
+			<ion-label position="stacked" color="primary" class="ion-text-wrap"
+				>Preservation Target ID</ion-label
+			>
+			<ion-input
+				[(ngModel)]="model.preservationTargetId"
+				name="preservationTargetId"
+				type="text"
+				required="true"
+			>
+			</ion-input>
+		</ion-item>
+		<ion-item lines="full" class="ion-activatable">
+			<ion-label position="stacked" color="primary" class="ion-text-wrap">Backup Category</ion-label>
+			<ion-input [(ngModel)]="model.backupCategory" name="backupCategory" type="text" required="true">
+			</ion-input>
+		</ion-item>
+	</form>
+</ion-content>

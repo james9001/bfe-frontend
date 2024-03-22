@@ -1,0 +1,68 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-menu-button></ion-menu-button>
+		</ion-buttons>
+		<ion-item lines="none">
+			<ion-title class="toolbar-title-header">Current Upload</ion-title>
+		</ion-item>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content class="noselect">
+	<div id="container">
+		<div *ngIf="state.inErrorState" class="info-row"><span style="color: red">ERROR</span></div>
+		<div *ngIf="state.inAutomaticMode" class="info-row"><span style="color: cyan">AUTO</span></div>
+		<div
+			*ngIf="state._status == 'FREE' || state._status == 'DOING_BACKUP' || state._status == 'DOING_RESTORATION'"
+			class="info-row"
+		>
+			No upload in progress.
+		</div>
+		<div *ngIf="state._status == 'DOING_UPLOAD'">
+			<div class="info-row">Global State status: {{ state._status }}</div>
+			<div class="info-row">Current backup execution id: {{ state.currentBackupExecutionId }}</div>
+			<div class="info-row">Current upload execution id: {{ state.currentUploadExecutionId }}</div>
+			<div class="info-row">
+				RClone Bwlimit: {{ settings.rcloneBwLimit ? settings.rcloneBwLimit : '(empty)' }}
+			</div>
+			<div *ngIf="uploadExecution" style="margin-top: 20px">
+				<div class="info-row">Current UploadExecution id: {{ uploadExecution.id }}</div>
+				<div class="info-row">
+					Current UploadExecution backupExecutionId: {{ uploadExecution.backupExecutionId }}
+				</div>
+				<div class="info-row">
+					Current UploadExecution destination: {{ uploadExecution.destination }}
+				</div>
+				<div class="info-row">
+					Current UploadExecution destinationPath: {{ uploadExecution.destinationPath }}
+				</div>
+				<div class="info-row">Current UploadExecution status: {{ uploadExecution.status }}</div>
+				<div class="buttons-row">
+					<ion-button *ngIf="uploadExecution.status == 'IN_PROGRESS'" (click)="onClickPause()"
+						>Pause</ion-button
+					>
+					<ion-button *ngIf="uploadExecution.status == 'PAUSED'" (click)="onClickResume()"
+						>Resume</ion-button
+					>
+					<ion-button
+						*ngIf="uploadExecution.status == 'NOT_STARTED' || uploadExecution.status == 'PAUSED'"
+						(click)="onClickRemove()"
+						>Remove</ion-button
+					>
+					<ion-button *ngIf="uploadExecution.status == 'NOT_STARTED'" (click)="onClickStart()"
+						>Start</ion-button
+					>
+					<ion-button *ngIf="uploadExecution.status == 'COMPLETE'" (click)="onClickFinalise()"
+						>Finalise</ion-button
+					>
+				</div>
+			</div>
+		</div>
+
+		<div *ngIf="state._status == 'DISCONNECTED'" class="info-row">
+			Currently disconnected. Can't tell you anything.
+		</div>
+		<div *ngIf="state._status == 'UNKNOWN'" class="info-row">Loading...</div>
+	</div>
+</ion-content>

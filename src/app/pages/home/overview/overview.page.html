@@ -1,0 +1,295 @@
+<ion-header class="noselect">
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-menu-button></ion-menu-button>
+		</ion-buttons>
+		<ion-item lines="none">
+			<ion-title class="toolbar-title-header">Overview</ion-title>
+		</ion-item>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content class="noselect">
+	<div *ngIf="!state.finishedInit">
+		<h4 style="margin-left: 10px">Loading...</h4>
+	</div>
+	<div *ngIf="state.finishedInit">
+		<h4 style="margin-left: 10px">Mutable</h4>
+		<ion-card *ngFor="let basicView of state.allMutableBasicViews; let i = index">
+			<!--Copypaste Zone Start - TODO turn this into component-->
+			<ion-item
+				lines="none"
+				class="objectlist-item"
+				[ngClass]="basicView.isOpened ? 'objectlist-item-expanded' : ''"
+				(click)="onClickCategoryCard(basicView)"
+			>
+				<ion-avatar
+					slot="start"
+					[ngClass]="basicView.statusLevel === 0 ? 'objectlist-category-avatar-primary' : basicView.statusLevel === 1 ? 'objectlist-category-avatar-warning' : 'objectlist-category-avatar-error'"
+				>
+					<ion-icon class="objectlist-category-ionicon" name="book-outline"></ion-icon>
+				</ion-avatar>
+				<ion-label>
+					<h2 style="font-weight: 500">{{basicView.name}}</h2>
+				</ion-label>
+				<ion-label slot="end">
+					<p>{{basicView.statusText}}</p>
+				</ion-label>
+			</ion-item>
+
+			<div *ngIf="basicView.isOpened && basicView.fullModel" lines="full" class="brighter-lines">
+				<!-- <ion-item lines="full" class="brighter-lines">
+					<div class="category-magic-spacing-hax">
+						<ion-label>
+							<p>&nbsp;</p>
+						</ion-label>
+					</div>
+				</ion-item> -->
+
+				<div
+					*ngFor="let pcptli of basicView.fullModel.preservationTargets"
+					(click)="onClickPreservationTargetCard(pcptli)"
+				>
+					<ion-item lines="none" [ngClass]="pcptli.isOpened ? 'objectlist-item-expanded' : ''">
+						<ion-avatar
+							slot="start"
+							[ngClass]="pcptli.statusLevel === 0 ? 'objectlist-category-avatar-primary' : pcptli.statusLevel === 1 ? 'objectlist-category-avatar-warning' : 'objectlist-category-avatar-error'"
+						>
+							<ion-icon class="objectlist-category-ionicon" name="trophy-outline"></ion-icon>
+						</ion-avatar>
+						<ion-label>
+							<h3>{{pcptli.name}}</h3>
+						</ion-label>
+						<ion-label slot="end">
+							<p>{{pcptli.statusText}}</p>
+						</ion-label>
+						<ion-avatar slot="end" class="priority-avatar">
+							<span *ngIf="pcptli.priorityNumber < 8">{{pcptli.priorityNumber}}</span>
+						</ion-avatar>
+					</ion-item>
+
+					<ion-item
+						lines="full"
+						class="brighter-lines"
+						[ngClass]="pcptli.isOpened ? 'objectlist-item-expanded' : ''"
+					>
+						<ion-grid class="magic-spacing-hax">
+							<ion-row>
+								<ion-col class="col-normal">
+									<ion-label
+										*ngIf="pcptli.mostRecentBackup && pcptli.mostRecentBackup.successfulUploads.length > 0"
+									>
+										<p>
+											Last uploaded: {{
+											getMostRecentUploadsForEtcViewFromBackupForEtcView(pcptli.mostRecentBackup).completedTime
+											| date:"yyyy-MM-dd h:mm a" }}
+										</p>
+										<p>
+											{{
+											+getMostRecentUploadsForEtcViewFromBackupForEtcView(pcptli.mostRecentBackup).completedTime
+											| timeago }}
+										</p>
+									</ion-label>
+									<ion-label
+										*ngIf="pcptli.mostRecentBackup && pcptli.mostRecentBackup.successfulUploads.length === 0"
+									>
+										<p>No successful uploads</p>
+									</ion-label>
+									<ion-label *ngIf="!pcptli.mostRecentBackup">
+										<p>Backup has not run yet</p>
+									</ion-label>
+								</ion-col>
+
+								<ion-col class="col-normal" *ngIf="pcptli.mostRecentBackup">
+									<ion-label>
+										<p>Last upload destination count: {{pcptli.mostRecentBackup.successfulUploads.length}}</p>
+										<p>{{getDestinationStringFromBackupForEtcView(pcptli.mostRecentBackup)}}</p>
+									</ion-label>
+								</ion-col>
+								<ion-col class="col-normal" *ngIf="pcptli.mostRecentBackup">
+									<ion-label>
+										<p>Last backup category: {{pcptli.mostRecentBackup.category }}</p>
+										<p>Last seen size: {{+pcptli.mostRecentBackup.sizeBytes | filesize}}</p>
+									</ion-label>
+								</ion-col>
+							</ion-row>
+
+							<ion-row *ngIf="pcptli.isOpened">
+								<ion-col class="col-full">
+									<ion-label>
+										<p>Full path: {{pcptli.fullPath}}</p>
+									</ion-label>
+								</ion-col>
+							</ion-row>
+							<ion-row *ngIf="pcptli.isOpened && pcptli.mostRecentBackup">
+								<ion-col class="col-full">
+									<ion-label>
+										<p>Last backup execution ID: {{pcptli.mostRecentBackup.id}}</p>
+									</ion-label>
+								</ion-col>
+							</ion-row>
+							<ion-row *ngIf="pcptli.isOpened && pcptli.mostRecentBackup">
+								<ion-col class="col-full">
+									<ion-label>
+										<p>
+											Last backup execution last updated: {{pcptli.mostRecentBackup.updatedTime |
+											date:"yyyy-MM-dd h:mm a"}}
+										</p>
+									</ion-label>
+								</ion-col>
+							</ion-row>
+							<ion-row *ngIf="pcptli.isOpened">
+								<ion-col class="col-full">
+									<ion-label>
+										<p>Preservation target ID: {{pcptli.id}}</p>
+									</ion-label>
+								</ion-col>
+							</ion-row>
+						</ion-grid>
+					</ion-item>
+				</div>
+			</div>
+			<!--Copypaste Zone End-->
+		</ion-card>
+	</div>
+
+	<div *ngIf="state.finishedInit">
+		<h4 style="margin-left: 10px">Immutable</h4>
+		<ion-card *ngFor="let basicView of state.allImmutableBasicViews; let i = index">
+			<!--Copypaste Zone Start - TODO turn this into component-->
+			<ion-item
+				lines="none"
+				class="objectlist-item"
+				[ngClass]="basicView.isOpened ? 'objectlist-item-expanded' : ''"
+				(click)="onClickCategoryCard(basicView)"
+			>
+				<ion-avatar
+					slot="start"
+					[ngClass]="basicView.statusLevel === 0 ? 'objectlist-category-avatar-primary' : basicView.statusLevel === 1 ? 'objectlist-category-avatar-warning' : 'objectlist-category-avatar-error'"
+				>
+					<ion-icon class="objectlist-category-ionicon" name="book"></ion-icon>
+				</ion-avatar>
+				<ion-label>
+					<h2 style="font-weight: 500">{{basicView.name}}</h2>
+				</ion-label>
+				<ion-label slot="end">
+					<p>{{basicView.statusText}}</p>
+				</ion-label>
+			</ion-item>
+
+			<div *ngIf="basicView.isOpened && basicView.fullModel" lines="full" class="brighter-lines">
+				<!-- <ion-item lines="full" class="brighter-lines">
+					<div class="category-magic-spacing-hax">
+						<ion-label>
+							<p>&nbsp;</p>
+						</ion-label>
+					</div>
+				</ion-item> -->
+
+				<div
+					*ngFor="let pcptli of basicView.fullModel.preservationTargets"
+					(click)="onClickPreservationTargetCard(pcptli)"
+				>
+					<ion-item lines="none" [ngClass]="pcptli.isOpened ? 'objectlist-item-expanded' : ''">
+						<ion-avatar
+							slot="start"
+							[ngClass]="pcptli.statusLevel === 0 ? 'objectlist-category-avatar-primary' : pcptli.statusLevel === 1 ? 'objectlist-category-avatar-warning' : 'objectlist-category-avatar-error'"
+						>
+							<ion-icon class="objectlist-category-ionicon" name="trophy"></ion-icon>
+						</ion-avatar>
+						<ion-label>
+							<h3>{{pcptli.name}}</h3>
+						</ion-label>
+						<ion-label slot="end">
+							<p>{{pcptli.statusText}}</p>
+						</ion-label>
+						<ion-avatar slot="end" class="priority-avatar">
+							<span *ngIf="pcptli.priorityNumber < 8">{{pcptli.priorityNumber}}</span>
+						</ion-avatar>
+					</ion-item>
+
+					<ion-item
+						lines="full"
+						class="brighter-lines"
+						[ngClass]="pcptli.isOpened ? 'objectlist-item-expanded' : ''"
+					>
+						<ion-grid class="magic-spacing-hax">
+							<ion-row>
+								<ion-col class="col-normal">
+									<ion-label
+										*ngIf="pcptli.mostRecentBackup && pcptli.mostRecentBackup.successfulUploads.length > 0"
+									>
+										<p>
+											Last uploaded: {{
+											getMostRecentUploadsForEtcViewFromBackupForEtcView(pcptli.mostRecentBackup).completedTime
+											| date:"yyyy-MM-dd h:mm a" }}
+										</p>
+										<p>
+											{{
+											+getMostRecentUploadsForEtcViewFromBackupForEtcView(pcptli.mostRecentBackup).completedTime
+											| timeago }}
+										</p>
+									</ion-label>
+									<ion-label
+										*ngIf="pcptli.mostRecentBackup && pcptli.mostRecentBackup.successfulUploads.length === 0"
+									>
+										<p>No successful uploads</p>
+									</ion-label>
+									<ion-label *ngIf="!pcptli.mostRecentBackup">
+										<p>Backup has not run yet</p>
+									</ion-label>
+								</ion-col>
+
+								<ion-col class="col-normal" *ngIf="pcptli.mostRecentBackup">
+									<ion-label>
+										<p>Last upload destination count: {{pcptli.mostRecentBackup.successfulUploads.length}}</p>
+										<p>{{getDestinationStringFromBackupForEtcView(pcptli.mostRecentBackup)}}</p>
+									</ion-label>
+								</ion-col>
+								<ion-col class="col-normal" *ngIf="pcptli.mostRecentBackup">
+									<ion-label>
+										<p>Last backup category: {{pcptli.mostRecentBackup.category }}</p>
+										<p>Last seen size: {{+pcptli.mostRecentBackup.sizeBytes | filesize}}</p>
+									</ion-label>
+								</ion-col>
+							</ion-row>
+
+							<ion-row *ngIf="pcptli.isOpened">
+								<ion-col class="col-full">
+									<ion-label>
+										<p>Full path: {{pcptli.fullPath}}</p>
+									</ion-label>
+								</ion-col>
+							</ion-row>
+							<ion-row *ngIf="pcptli.isOpened && pcptli.mostRecentBackup">
+								<ion-col class="col-full">
+									<ion-label>
+										<p>Last backup execution ID: {{pcptli.mostRecentBackup.id}}</p>
+									</ion-label>
+								</ion-col>
+							</ion-row>
+							<ion-row *ngIf="pcptli.isOpened && pcptli.mostRecentBackup">
+								<ion-col class="col-full">
+									<ion-label>
+										<p>
+											Last backup execution last updated: {{pcptli.mostRecentBackup.updatedTime |
+											date:"yyyy-MM-dd h:mm a"}}
+										</p>
+									</ion-label>
+								</ion-col>
+							</ion-row>
+							<ion-row *ngIf="pcptli.isOpened">
+								<ion-col class="col-full">
+									<ion-label>
+										<p>Preservation target ID: {{pcptli.id}}</p>
+									</ion-label>
+								</ion-col>
+							</ion-row>
+						</ion-grid>
+					</ion-item>
+				</div>
+			</div>
+			<!--Copypaste Zone End-->
+		</ion-card>
+	</div>
+</ion-content>

@@ -1,0 +1,34 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-menu-button></ion-menu-button>
+		</ion-buttons>
+		<ion-item lines="none">
+			<ion-title class="toolbar-title-header">Adjust Upload Speed</ion-title>
+		</ion-item>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content class="noselect">
+	<form novalidate>
+		<h4>Setting</h4>
+		<ion-item lines="full" class="ion-activatable">
+			<ion-label position="stacked" color="primary" class="ion-text-wrap"
+				>rclone Bandwidth Limit</ion-label
+			>
+			<ion-input
+				[(ngModel)]="speedSettingsModel.rcloneBwLimit"
+				name="rcloneBwLimit"
+				type="text"
+				required="true"
+			>
+			</ion-input>
+		</ion-item>
+
+		<div
+			*ngIf="state._status == 'DOING_UPLOAD' && uploadExecution && uploadExecution.status == 'IN_PROGRESS'"
+		>
+			<ion-button (click)="onClickDoIt()">Do It</ion-button>
+		</div>
+	</form>
+</ion-content>

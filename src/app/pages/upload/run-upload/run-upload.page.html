@@ -1,0 +1,33 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-menu-button></ion-menu-button>
+		</ion-buttons>
+		<ion-item lines="none">
+			<ion-title class="toolbar-title-header">Run Upload</ion-title>
+			<ion-icon name="play-outline" slot="end" (click)="onClickPlay()"></ion-icon>
+		</ion-item>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content class="noselect">
+	<form novalidate>
+		<ion-item lines="full" class="ion-activatable">
+			<ion-label position="stacked" color="primary" class="ion-text-wrap"
+				>Destination ("copypasta" or "rclone")</ion-label
+			>
+			<ion-input [(ngModel)]="model.destination" name="destination" type="text" required="true">
+			</ion-input>
+		</ion-item>
+		<ion-item lines="full" class="ion-activatable">
+			<ion-label position="stacked" color="primary" class="ion-text-wrap">Destination Path</ion-label>
+			<ion-input
+				[(ngModel)]="model.destinationPath"
+				name="destinationPath"
+				type="text"
+				required="true"
+			>
+			</ion-input>
+		</ion-item>
+	</form>
+</ion-content>

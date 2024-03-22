@@ -1,0 +1,55 @@
+.status-container {
+	width: calc(100% - 2em);
+	height: 11em;
+	background-color: var(--ion-color-light-shade);
+	border-radius: 3em;
+	padding: 1em;
+	margin: 1em;
+}
+
+.bfe-frontend-title {
+	text-align: center;
+}
+
+.main-status-section {
+	width: calc(100%);
+	border-radius: 3em;
+	padding: 1em;
+	margin-top: 1em;
+}
+
+.status-detail-section {
+	width: calc(100%);
+	border-radius: 3em;
+	padding: 1em;
+	margin-top: 0.5em;
+	background-color: var(--ion-color-light);
+}
+
+.main-status-text {
+	text-align: center;
+}
+
+.detail-text {
+	text-align: center;
+}
+
+.status-disconnected {
+	background-color: var(--ion-color-danger);
+}
+
+.status-free {
+	background-color: var(--ion-color-success);
+}
+
+.status-doing-backup {
+	background-color: var(--ion-color-secondary);
+}
+
+.status-doing-upload {
+	background-color: var(--ion-color-primary);
+}
+
+.status-doing-restoration {
+	background-color: var(--ion-color-tertiary);
+}

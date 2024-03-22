@@ -1,0 +1,115 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-menu-button></ion-menu-button>
+		</ion-buttons>
+		<ion-item lines="none">
+			<ion-title class="toolbar-title-header">Run Batch</ion-title>
+		</ion-item>
+		<ion-buttons slot="end">
+			<ion-button (click)="onClickDeleteExisting()">Delete Existing</ion-button>
+			<ion-button (click)="onClickCreateBatch()">Create Batch</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content class="noselect">
+	<form novalidate>
+		<ion-item lines="full" class="ion-activatable">
+			<ion-label position="stacked" color="primary" class="ion-text-wrap"
+				>Preservation Target Category for Batch</ion-label
+			>
+			<ion-input
+				[(ngModel)]="model.preservationTargetCategoryForBatch"
+				name="preservationTargetCategoryForBatch"
+				type="text"
+				required="true"
+			>
+			</ion-input>
+		</ion-item>
+		<ion-item lines="full" class="ion-activatable">
+			<ion-label position="stacked" color="primary" class="ion-text-wrap"
+				>Batch Backup Category</ion-label
+			>
+			<ion-input
+				[(ngModel)]="model.batchBackupCategory"
+				name="batchBackupCategory"
+				type="text"
+				required="true"
+			>
+			</ion-input>
+		</ion-item>
+		<ion-item lines="full" class="ion-activatable">
+			<ion-label position="stacked" color="primary" class="ion-text-wrap"
+				>Batch Upload Destination</ion-label
+			>
+			<ion-input
+				[(ngModel)]="model.batchUploadDestination"
+				name="batchUploadDestination"
+				type="text"
+				required="true"
+			>
+			</ion-input>
+		</ion-item>
+		<ion-item lines="full" class="ion-activatable">
+			<ion-label position="stacked" color="primary" class="ion-text-wrap">Batch Upload Path</ion-label>
+			<ion-input
+				[(ngModel)]="model.batchUploadPath"
+				name="batchUploadPath"
+				type="text"
+				required="true"
+			>
+			</ion-input>
+		</ion-item>
+		<ion-item lines="full" class="ion-activatable">
+			<ion-label
+				position="stacked"
+				color="primary"
+				class="ion-text-wrap"
+				*ngIf="uploadToTwoTargetsEnabled"
+			>
+				Batch Second Upload Destination
+			</ion-label>
+			<ion-label
+				position="stacked"
+				color="danger"
+				class="ion-text-wrap"
+				*ngIf="!uploadToTwoTargetsEnabled"
+			>
+				Batch Second Upload Destination (disabled in settings)
+			</ion-label>
+			<ion-input
+				[(ngModel)]="model.batchSecondUploadDestination"
+				name="batchSecondUploadDestination"
+				type="text"
+				required="true"
+			>
+			</ion-input>
+		</ion-item>
+		<ion-item lines="full" class="ion-activatable">
+			<ion-label
+				position="stacked"
+				color="primary"
+				class="ion-text-wrap"
+				*ngIf="uploadToTwoTargetsEnabled"
+			>
+				Batch Second Upload Path
+			</ion-label>
+			<ion-label
+				position="stacked"
+				color="danger"
+				class="ion-text-wrap"
+				*ngIf="!uploadToTwoTargetsEnabled"
+			>
+				Batch Second Upload Path (disabled in settings)
+			</ion-label>
+			<ion-input
+				[(ngModel)]="model.batchSecondUploadPath"
+				name="batchSecondUploadPath"
+				type="text"
+				required="true"
+			>
+			</ion-input>
+		</ion-item>
+	</form>
+</ion-content>
