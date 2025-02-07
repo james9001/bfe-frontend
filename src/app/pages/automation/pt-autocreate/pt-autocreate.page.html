@@ -1,0 +1,60 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-menu-button></ion-menu-button>
+		</ion-buttons>
+		<ion-item lines="none">
+			<ion-title class="toolbar-title-header">PT Autocreate</ion-title>
+		</ion-item>
+		<ion-buttons slot="end">
+			<ion-button style="color: var(--ion-color-danger)" (click)="onClickOops()">Oops</ion-button>
+			<ion-button (click)="onClickRun()">Run Autocreate</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content class="noselect">
+	<form novalidate>
+		<ion-item lines="full" class="ion-activatable">
+			<ion-label position="stacked" color="primary" class="ion-text-wrap"
+				>Watch Directories (subdirectories of these will be added as Preservation Targets. Please use
+				double quotes around each directory and separate using comma)</ion-label
+			>
+			<ion-textarea
+				[(ngModel)]="model.watchDirectoriesCommaSeparatedList"
+				name="watchDirectoriesCommaSeparatedList"
+				type="text"
+				required="true"
+				placeholder='"/home/james9001/archives","/my-mounted-volume/archives"'
+			>
+			</ion-textarea>
+		</ion-item>
+		<ion-item lines="full" class="ion-activatable">
+			<ion-label position="stacked" color="primary" class="ion-text-wrap"
+				>Preservation Target Type (must be either IMMUTABLE or MUTABLE)</ion-label
+			>
+			<ion-input
+				[(ngModel)]="model.preservationTargetType"
+				name="preservationTargetType"
+				type="text"
+				required="true"
+				placeholder="IMMUTABLE"
+			>
+			</ion-input>
+		</ion-item>
+		<ion-item lines="full" class="ion-activatable">
+			<ion-label position="stacked" color="primary" class="ion-text-wrap"
+				>Preservation Target Category (will be used as the value for Category, as well as prepended to
+				the Name of each and followed by a colon)</ion-label
+			>
+			<ion-input
+				[(ngModel)]="model.preservationTargetCategory"
+				name="preservationTargetCategory"
+				type="text"
+				required="true"
+				placeholder="Archives - Personal"
+			>
+			</ion-input>
+		</ion-item>
+	</form>
+</ion-content>

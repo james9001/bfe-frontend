@@ -56,7 +56,18 @@
 							detail="false"
 						>
 							<ion-icon slot="start" name="play-outline"></ion-icon>
-							<ion-label> Run Batch</ion-label>
+							<ion-label> Run Batch </ion-label>
+						</ion-item>
+					</ion-menu-toggle>
+					<ion-menu-toggle autoHide="false">
+						<ion-item
+							routerLink="/pt-autocreate"
+							routerLinkActive="active"
+							routerDirection="root"
+							detail="false"
+						>
+							<ion-icon slot="start" name="cog-outline"></ion-icon>
+							<ion-label>PT Autocreate</ion-label>
 						</ion-item>
 					</ion-menu-toggle>
 					<ion-menu-toggle autoHide="false" *ngIf="settings.showOldDataPages">

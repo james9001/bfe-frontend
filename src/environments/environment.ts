@@ -4,7 +4,7 @@
 
 export const environment = {
 	production: false,
-	bfeBackendBaseUrl: "http://localhost:7000",
+	bfeBackendBaseUrl: "http://localhost:7009",
 };
 
 /*

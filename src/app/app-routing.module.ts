@@ -95,6 +95,13 @@ const routes: Routes = [
 			import("./pages/automation/run-batch/run-batch.module").then((m) => m.RunBatchPageModule),
 	},
 	{
+		path: "pt-autocreate",
+		loadChildren: () =>
+			import("./pages/automation/pt-autocreate/pt-autocreate.module").then(
+				(m) => m.PtAutocreatePageModule
+			),
+	},
+	{
 		path: "backup-executions-data",
 		loadChildren: () =>
 			import("./pages/backup/backup-executions-data/backup-executions-data.module").then(
