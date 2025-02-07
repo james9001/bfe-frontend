@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { ToastController } from "@ionic/angular";
-import { ConnectionData } from "src/app/service/connection-data";
+import { environment } from "src/environments/environment";
 
 @Component({
 	selector: "app-restoration-run",
@@ -18,11 +18,7 @@ export class RunRestorationPage {
 		destinationDir: "",
 	};
 
-	constructor(
-		private toastController: ToastController,
-		public http: HttpClient,
-		private connectionData: ConnectionData
-	) {}
+	constructor(private toastController: ToastController, public http: HttpClient) {}
 
 	public async showToastMessage(message: string) {
 		const toast = await this.toastController.create({
@@ -34,9 +30,10 @@ export class RunRestorationPage {
 
 	public async onClickPlay() {
 		try {
-			const baseUrl = (await this.connectionData.getConnection()).apiBaseUrl;
 			const result = await this.http
-				.post(baseUrl + "/api/execution/restoration", this.model, { responseType: "text" })
+				.post(environment.bfeBackendBaseUrl + "/api/execution/restoration", this.model, {
+					responseType: "text",
+				})
 				.toPromise();
 			await this.showToastMessage(result);
 		} catch (err: unknown) {

@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { ConnectionData } from "src/app/service/connection-data";
 import { ApplicationStateData, ApplicationState } from "src/app/service/application-state-data";
 import { PreservationTarget } from "src/app/pages/backup/preservation-targets-old-data/preservation-targets-old-data.page";
+import { environment } from "src/environments/environment";
 
 @Component({
 	selector: "app-real-time-status",
@@ -15,11 +15,7 @@ export class RealTimeStatusComponent implements OnInit {
 	public inErrorState = false;
 	public inAutomaticMode = false;
 
-	constructor(
-		private http: HttpClient,
-		private applicationStateData: ApplicationStateData,
-		private connectionData: ConnectionData
-	) {}
+	constructor(private http: HttpClient, private applicationStateData: ApplicationStateData) {}
 
 	ngOnInit() {
 		setInterval(this.doStatusCheck, 1000);
@@ -43,10 +39,9 @@ export class RealTimeStatusComponent implements OnInit {
 	private doDetailsTextUpdate = async (status: ApplicationState): Promise<void> => {
 		if (status._status == "DOING_BACKUP" || status._status == "DOING_UPLOAD") {
 			const currentBackupExecution = await this.applicationStateData.getCurrentBackupExecution();
-			const baseUrl = (await this.connectionData.getConnection()).apiBaseUrl;
 			const preservationTarget = await this.http
 				.get<PreservationTarget>(
-					baseUrl +
+					environment.bfeBackendBaseUrl +
 						"/api/data/preservation-target/target/" +
 						currentBackupExecution!.preservationTargetId,
 					{}

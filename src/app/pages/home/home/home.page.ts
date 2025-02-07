@@ -6,7 +6,7 @@ import {
 	ApplicationSettingsData,
 } from "src/app/service/application-settings-data";
 import { ApplicationState, ApplicationStateData } from "src/app/service/application-state-data";
-import { ConnectionData } from "src/app/service/connection-data";
+import { environment } from "src/environments/environment";
 
 @Component({
 	selector: "app-home",
@@ -41,7 +41,6 @@ export class HomePage {
 		private toastController: ToastController,
 		private applicationStateData: ApplicationStateData,
 		public http: HttpClient,
-		private connectionData: ConnectionData,
 		private applicationSettingsData: ApplicationSettingsData
 	) {}
 
@@ -65,9 +64,8 @@ export class HomePage {
 
 	public onClickTerminate = async () => {
 		try {
-			const baseUrl = (await this.connectionData.getConnection()).apiBaseUrl;
 			const result = await this.http
-				.post(baseUrl + "/api/execution/terminate", {}, { responseType: "text" })
+				.post(environment.bfeBackendBaseUrl + "/api/execution/terminate", {}, { responseType: "text" })
 				.toPromise();
 			await this.showToastMessage(result);
 		} catch (err: unknown) {

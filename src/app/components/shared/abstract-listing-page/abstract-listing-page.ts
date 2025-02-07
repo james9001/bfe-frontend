@@ -5,18 +5,14 @@ import {
 	GenericDataTableConfiguration,
 	IdentifiableDto,
 } from "../model/viewmodel-interface";
-import { ConnectionData } from "../../../service/connection-data";
 import { DatatableData } from "../genericdatatable/datatable-data";
 import { GenericDataTableComponent } from "../genericdatatable/genericdatatable.component";
 import { InputCustomEvent, SelectCustomEvent } from "@ionic/angular";
+import { environment } from "src/environments/environment";
 
 @Directive()
 export abstract class AbstractListingPage implements OnInit {
-	constructor(
-		protected dataTableData: DatatableData,
-		public http: HttpClient,
-		protected connectionData: ConnectionData
-	) {}
+	constructor(protected dataTableData: DatatableData, public http: HttpClient) {}
 
 	public async ngOnInit(): Promise<void> {
 		this.state = this.createState();
@@ -55,9 +51,11 @@ export abstract class AbstractListingPage implements OnInit {
 	public abstract getNewTableIdentifiable(): TableIdentifiable;
 
 	protected async loadData(): Promise<void> {
-		const baseUrl = (await this.connectionData.getConnection()).apiBaseUrl;
 		const items = await this.http
-			.get<IdentifiableDto[]>(baseUrl + "/api/data/" + this.state.dataTableConfiguration.apiPath, {})
+			.get<IdentifiableDto[]>(
+				environment.bfeBackendBaseUrl + "/api/data/" + this.state.dataTableConfiguration.apiPath,
+				{}
+			)
 			.toPromise();
 
 		this.state.allModels = [];

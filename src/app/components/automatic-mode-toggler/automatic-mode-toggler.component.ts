@@ -1,7 +1,7 @@
 import { Component, HostListener } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { ConnectionData } from "src/app/service/connection-data";
 import { ApplicationStateData } from "src/app/service/application-state-data";
+import { environment } from "src/environments/environment";
 
 @Component({
 	selector: "app-automatic-mode-toggler",
@@ -15,11 +15,7 @@ export class AutomaticModeTogglerComponent {
 
 	private updatingToggle = false;
 
-	constructor(
-		private http: HttpClient,
-		private applicationStateData: ApplicationStateData,
-		private connectionData: ConnectionData
-	) {}
+	constructor(private http: HttpClient, private applicationStateData: ApplicationStateData) {}
 
 	@HostListener("window:realtimestatus")
 	public realTimeStatusUpdate = async () => {
@@ -33,9 +29,9 @@ export class AutomaticModeTogglerComponent {
 		this.updatingToggle = true;
 
 		setTimeout(async () => {
-			const baseUrl = (await this.connectionData.getConnection()).apiBaseUrl;
-
-			await this.http.put(baseUrl + "/api/automatic-mode/toggle", this.model, {}).toPromise();
+			await this.http
+				.put(environment.bfeBackendBaseUrl + "/api/automatic-mode/toggle", this.model, {})
+				.toPromise();
 
 			this.updatingToggle = false;
 		}, 1);

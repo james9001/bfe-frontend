@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Component } from "@angular/core";
 import { ToastController } from "@ionic/angular";
 import { ApplicationSettingsData } from "src/app/service/application-settings-data";
-import { ConnectionData } from "src/app/service/connection-data";
+import { environment } from "src/environments/environment";
 
 @Component({
 	selector: "app-backup-upload-run",
@@ -18,7 +18,6 @@ export class RunBackupPage {
 	constructor(
 		private toastController: ToastController,
 		public http: HttpClient,
-		private connectionData: ConnectionData,
 		private applicationSettingsData: ApplicationSettingsData
 	) {}
 
@@ -37,9 +36,10 @@ export class RunBackupPage {
 
 	public async onClickPlay() {
 		try {
-			const baseUrl = (await this.connectionData.getConnection()).apiBaseUrl;
 			const result = await this.http
-				.post(baseUrl + "/api/execution/backup", this.model, { responseType: "text" })
+				.post(environment.bfeBackendBaseUrl + "/api/execution/backup", this.model, {
+					responseType: "text",
+				})
 				.toPromise();
 			await this.showToastMessage(result);
 		} catch (err: unknown) {

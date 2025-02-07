@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Component } from "@angular/core";
 import { ApplicationSettingsData } from "src/app/service/application-settings-data";
 import { ApplicationStateData } from "src/app/service/application-state-data";
-import { ConnectionData } from "src/app/service/connection-data";
+import { environment } from "src/environments/environment";
 
 /*
  * TODO: refactor this module a lot.
@@ -22,7 +22,6 @@ export class OverviewPage {
 
 	constructor(
 		private http: HttpClient,
-		private connectionData: ConnectionData,
 		private applicationStateData: ApplicationStateData,
 		private applicationSettingsData: ApplicationSettingsData
 	) {}
@@ -45,10 +44,9 @@ export class OverviewPage {
 	}
 
 	private async populatePreservationCategory(view: BasicPreservationCategoryView): Promise<void> {
-		const baseUrl = (await this.connectionData.getConnection()).apiBaseUrl;
 		const fullModel = await this.http
 			.get<PreservationCategory>(
-				baseUrl +
+				environment.bfeBackendBaseUrl +
 					"/api/view/category/detail/" +
 					(view.isMutable ? "mutable" : "immutable") +
 					"/" +
@@ -145,9 +143,8 @@ export class OverviewPage {
 	}
 
 	private async populateData(): Promise<void> {
-		const baseUrl = (await this.connectionData.getConnection()).apiBaseUrl;
 		const preservationCategories = await this.http
-			.get<BasicPreservationCategory[]>(baseUrl + "/api/view/category/basic", {})
+			.get<BasicPreservationCategory[]>(environment.bfeBackendBaseUrl + "/api/view/category/basic", {})
 			.toPromise();
 		const basicItemViews: BasicPreservationCategoryView[] = preservationCategories.map(
 			(preservationCategory: BasicPreservationCategory) => {

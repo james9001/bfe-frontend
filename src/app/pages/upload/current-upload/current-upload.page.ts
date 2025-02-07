@@ -1,13 +1,13 @@
 import { Component, HostListener } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { ToastController } from "@ionic/angular";
-import { ConnectionData } from "src/app/service/connection-data";
 import {
 	ApplicationSettingsDto,
 	ApplicationSettingsData,
 } from "src/app/service/application-settings-data";
 import { ApplicationState, ApplicationStateData } from "src/app/service/application-state-data";
 import { UploadExecution } from "../upload-executions-old-data/upload-executions-old-data.page";
+import { environment } from "src/environments/environment";
 
 @Component({
 	selector: "app-current-upload",
@@ -41,7 +41,6 @@ export class CurrentUploadPage {
 		private toastController: ToastController,
 		private applicationStateData: ApplicationStateData,
 		public http: HttpClient,
-		private connectionData: ConnectionData,
 		private applicationSettingsData: ApplicationSettingsData
 	) {}
 
@@ -64,9 +63,12 @@ export class CurrentUploadPage {
 
 	public onClickPause = async () => {
 		try {
-			const baseUrl = (await this.connectionData.getConnection()).apiBaseUrl;
 			const result = await this.http
-				.post(baseUrl + "/api/execution/upload/action/pause", {}, { responseType: "text" })
+				.post(
+					environment.bfeBackendBaseUrl + "/api/execution/upload/action/pause",
+					{},
+					{ responseType: "text" }
+				)
 				.toPromise();
 			await this.showToastMessage(result);
 		} catch (err: unknown) {
@@ -78,9 +80,12 @@ export class CurrentUploadPage {
 	};
 	public onClickResume = async () => {
 		try {
-			const baseUrl = (await this.connectionData.getConnection()).apiBaseUrl;
 			const result = await this.http
-				.post(baseUrl + "/api/execution/upload/action/resume", {}, { responseType: "text" })
+				.post(
+					environment.bfeBackendBaseUrl + "/api/execution/upload/action/resume",
+					{},
+					{ responseType: "text" }
+				)
 				.toPromise();
 			await this.showToastMessage(result);
 		} catch (err: unknown) {
@@ -92,9 +97,12 @@ export class CurrentUploadPage {
 	};
 	public onClickRemove = async () => {
 		try {
-			const baseUrl = (await this.connectionData.getConnection()).apiBaseUrl;
 			const result = await this.http
-				.post(baseUrl + "/api/execution/upload/action/remove", {}, { responseType: "text" })
+				.post(
+					environment.bfeBackendBaseUrl + "/api/execution/upload/action/remove",
+					{},
+					{ responseType: "text" }
+				)
 				.toPromise();
 			await this.showToastMessage(result);
 		} catch (err: unknown) {
@@ -106,9 +114,12 @@ export class CurrentUploadPage {
 	};
 	public onClickStart = async () => {
 		try {
-			const baseUrl = (await this.connectionData.getConnection()).apiBaseUrl;
 			const result = await this.http
-				.post(baseUrl + "/api/execution/upload/action/start", {}, { responseType: "text" })
+				.post(
+					environment.bfeBackendBaseUrl + "/api/execution/upload/action/start",
+					{},
+					{ responseType: "text" }
+				)
 				.toPromise();
 			await this.showToastMessage(result);
 		} catch (err: unknown) {
@@ -120,9 +131,12 @@ export class CurrentUploadPage {
 	};
 	public onClickFinalise = async () => {
 		try {
-			const baseUrl = (await this.connectionData.getConnection()).apiBaseUrl;
 			const result = await this.http
-				.post(baseUrl + "/api/execution/upload/action/finalise", {}, { responseType: "text" })
+				.post(
+					environment.bfeBackendBaseUrl + "/api/execution/upload/action/finalise",
+					{},
+					{ responseType: "text" }
+				)
 				.toPromise();
 			await this.showToastMessage(result);
 		} catch (err: unknown) {

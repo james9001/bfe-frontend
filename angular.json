@@ -13,32 +13,6 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "configurations": {
-            "ci": {
-              "progress": false
-            },
-            "production": {
-              "aot": true,
-              "budgets": [
-                {
-                  "maximumError": "5mb",
-                  "maximumWarning": "2mb",
-                  "type": "initial"
-                }
-              ],
-              "buildOptimizer": true,
-              "extractLicenses": true,
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "namedChunks": false,
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "vendorChunk": false
-            },
             "web": {
               "aot": true,
               "budgets": [

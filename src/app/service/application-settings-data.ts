@@ -1,23 +1,23 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { ConnectionData } from "./connection-data";
+import { environment } from "src/environments/environment";
 
 @Injectable({
 	providedIn: "root",
 })
 export class ApplicationSettingsData {
-	constructor(private http: HttpClient, private connectionData: ConnectionData) {}
+	constructor(private http: HttpClient) {}
 
 	public async getApplicationSettings(): Promise<ApplicationSettingsDto> {
-		const baseUrl = (await this.connectionData.getConnection()).apiBaseUrl;
 		return this.http
-			.get<ApplicationSettingsDto>(baseUrl + "/api/data/settings/settings", {})
+			.get<ApplicationSettingsDto>(environment.bfeBackendBaseUrl + "/api/data/settings/settings", {})
 			.toPromise();
 	}
 
 	public async putApplicationSettings(dto: ApplicationSettingsDto): Promise<void> {
-		const baseUrl = (await this.connectionData.getConnection()).apiBaseUrl;
-		await this.http.put(baseUrl + "/api/data/settings/settings", dto, {}).toPromise();
+		await this.http
+			.put(environment.bfeBackendBaseUrl + "/api/data/settings/settings", dto, {})
+			.toPromise();
 		window.dispatchEvent(new CustomEvent("settingschange"));
 	}
 }

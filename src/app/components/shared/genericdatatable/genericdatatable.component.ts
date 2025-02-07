@@ -9,7 +9,6 @@ import {
 	ViewChild,
 } from "@angular/core";
 import { ModalController } from "@ionic/angular";
-import { ConnectionData } from "src/app/service/connection-data";
 import { TableIdentifiable } from "src/app/components/shared/model/viewmodel-interface";
 import { PageState } from "../abstract-listing-page/abstract-listing-page";
 import { GenericdataeditPage } from "./modals/genericdataedit/genericdataedit.page";
@@ -41,11 +40,7 @@ export class GenericDataTableComponent implements OnInit {
 
 	public sort: SortType = SortType.multi;
 
-	constructor(
-		private modalController: ModalController,
-		public http: HttpClient,
-		private connectionData: ConnectionData
-	) {}
+	constructor(private modalController: ModalController, public http: HttpClient) {}
 
 	public async openConfig() {
 		const modal = await this.modalController.create({

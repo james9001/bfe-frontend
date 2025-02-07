@@ -14,6 +14,7 @@ import {
 	SearchResponse,
 } from "src/app/components/shared/genericdatatable/genericdatatable.component";
 import { DirectoryChecksum } from "../backup-executions-old-data/backup-executions-old-data.page";
+import { environment } from "src/environments/environment";
 
 type unit = "bytes" | "KB" | "MB" | "GB" | "TB" | "PB";
 type unitPrecisionMap = {
@@ -42,9 +43,11 @@ export class BackupExecutionsDataPage extends AbstractListingPage {
 			pageSize: config.pageSize,
 		};
 
-		const baseUrl = (await this.connectionData.getConnection()).apiBaseUrl;
 		const response = await this.http
-			.post<SearchResponse<BackupExecutionView>>(baseUrl + "/api/data/view/backup/search", criteria)
+			.post<SearchResponse<BackupExecutionView>>(
+				environment.bfeBackendBaseUrl + "/api/data/view/backup/search",
+				criteria
+			)
 			.toPromise();
 		this.page = response.page;
 

@@ -118,19 +118,5 @@
 			</ion-input>
 		</ion-item>
 		<ion-button (click)="onClickSaveMainSettings()">Save Main Settings</ion-button>
-		<h4>Connection</h4>
-		<ion-item lines="full" class="ion-activatable">
-			<ion-label position="stacked" color="primary" class="ion-text-wrap"
-				>BFE Backend Base URL</ion-label
-			>
-			<ion-input
-				[(ngModel)]="connectionModel.apiBaseUrl"
-				name="apiBaseUrl"
-				type="text"
-				required="true"
-			>
-			</ion-input>
-		</ion-item>
-		<ion-button (click)="onClickSaveConnectionSettings()">Save Connection Settings</ion-button>
 	</form>
 </ion-content>

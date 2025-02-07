@@ -2,11 +2,11 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Component, Input } from "@angular/core";
 import { ModalController, ToastController } from "@ionic/angular";
 import { PageState } from "src/app/components/shared/abstract-listing-page/abstract-listing-page";
-import { ConnectionData } from "src/app/service/connection-data";
 import {
 	TableIdentifiable,
 	IdentifiableDto,
 } from "src/app/components/shared/model/viewmodel-interface";
+import { environment } from "src/environments/environment";
 
 @Component({
 	selector: "app-genericdataedit",
@@ -21,8 +21,7 @@ export class GenericdataeditPage {
 	constructor(
 		private modalCtrl: ModalController,
 		private toastController: ToastController,
-		public http: HttpClient,
-		private connectionData: ConnectionData
+		public http: HttpClient
 	) {}
 
 	public async onClickSave() {
@@ -67,13 +66,16 @@ export class GenericdataeditPage {
 
 	private doUpdate = async (): Promise<void> => {
 		const dto = this.state.pageComponent.mapOutgoing(this.model);
-		const baseUrl = (await this.connectionData.getConnection()).apiBaseUrl;
 		await this.http
-			.put(baseUrl + "/api/data/" + this.state.dataTableConfiguration.apiPath, dto, {})
+			.put(
+				environment.bfeBackendBaseUrl + "/api/data/" + this.state.dataTableConfiguration.apiPath,
+				dto,
+				{}
+			)
 			.toPromise();
 		const updated = await this.http
 			.get<IdentifiableDto>(
-				`${baseUrl}/api/data/${this.state.dataTableConfiguration.apiPath}/${dto.id}`,
+				`${environment.bfeBackendBaseUrl}/api/data/${this.state.dataTableConfiguration.apiPath}/${dto.id}`,
 				{}
 			)
 			.toPromise();
@@ -93,10 +95,9 @@ export class GenericdataeditPage {
 	private doCreate = async (): Promise<void> => {
 		//This must be where the datatable entity add/remove issue lies.
 		const dto = this.state.pageComponent.mapOutgoing(this.model);
-		const baseUrl = (await this.connectionData.getConnection()).apiBaseUrl;
 		const created = await this.http
 			.post<IdentifiableDto>(
-				baseUrl + "/api/data/" + this.state.dataTableConfiguration.apiPath,
+				environment.bfeBackendBaseUrl + "/api/data/" + this.state.dataTableConfiguration.apiPath,
 				dto,
 				{}
 			)
@@ -108,10 +109,13 @@ export class GenericdataeditPage {
 	};
 
 	private doDelete = async (): Promise<void> => {
-		const baseUrl = (await this.connectionData.getConnection()).apiBaseUrl;
 		await this.http
 			.delete(
-				baseUrl + "/api/data/" + this.state.dataTableConfiguration.apiPath + "/" + this.model.id,
+				environment.bfeBackendBaseUrl +
+					"/api/data/" +
+					this.state.dataTableConfiguration.apiPath +
+					"/" +
+					this.model.id,
 				{}
 			)
 			.toPromise();

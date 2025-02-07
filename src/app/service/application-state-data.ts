@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { ConnectionData } from "./connection-data";
 import { BackupExecution } from "../pages/backup/backup-executions-old-data/backup-executions-old-data.page";
 import { UploadExecution } from "../pages/upload/upload-executions-old-data/upload-executions-old-data.page";
+import { environment } from "src/environments/environment";
 
 /*
 TODO: Refactor
@@ -15,7 +15,7 @@ export class ApplicationStateData {
 	private currentBackupExecution?: BackupExecution;
 	private currentUploadExecution?: UploadExecution;
 
-	constructor(private http: HttpClient, private connectionData: ConnectionData) {}
+	constructor(private http: HttpClient) {}
 
 	public getCurrentUploadExecution = async (): Promise<UploadExecution | undefined> => {
 		return this.currentUploadExecution;
@@ -26,10 +26,11 @@ export class ApplicationStateData {
 			this.currentUploadExecution = undefined;
 			return undefined;
 		}
-		const baseUrl = (await this.connectionData.getConnection()).apiBaseUrl;
 		const currentUploadExecution = await this.http
 			.get<UploadExecution>(
-				baseUrl + "/api/data/upload/execution/" + this.state.currentUploadExecutionId,
+				environment.bfeBackendBaseUrl +
+					"/api/data/upload/execution/" +
+					this.state.currentUploadExecutionId,
 				{}
 			)
 			.toPromise();
@@ -46,10 +47,11 @@ export class ApplicationStateData {
 			this.currentBackupExecution = undefined;
 			return undefined;
 		}
-		const baseUrl = (await this.connectionData.getConnection()).apiBaseUrl;
 		const currentBackupExecution = await this.http
 			.get<BackupExecution>(
-				baseUrl + "/api/data/backup/execution/" + this.state.currentBackupExecutionId,
+				environment.bfeBackendBaseUrl +
+					"/api/data/backup/execution/" +
+					this.state.currentBackupExecutionId,
 				{}
 			)
 			.toPromise();
@@ -66,9 +68,8 @@ export class ApplicationStateData {
 
 	public getFreshState = async (): Promise<ApplicationState> => {
 		try {
-			const baseUrl = (await this.connectionData.getConnection()).apiBaseUrl;
 			const state = await this.http
-				.get<ApplicationState>(baseUrl + "/api/data/state/state", {})
+				.get<ApplicationState>(environment.bfeBackendBaseUrl + "/api/data/state/state", {})
 				.toPromise();
 			this.state = state;
 			return state;
